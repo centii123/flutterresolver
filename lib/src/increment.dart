@@ -1,89 +1,95 @@
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Material App',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Dos Floating Action Buttons'),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                  Text("Hola"),
-                ],
-              ),
-              Expanded(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FloatingActionButton(
-                      onPressed: () {
-                        // Acción del primer FloatingActionButton
-                      },
-                      child: Icon(Icons.add),
-                    ),
-                    FloatingActionButton(
-                      onPressed: () {
-                        // Acción del segundo FloatingActionButton
-                      },
-                      child: Icon(Icons.remove),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: contador(),
     );
   }
 }
 
+class contador extends StatefulWidget {
+  const contador({super.key});
 
-/*
-  Container(
-                
+  @override
+  State<contador> createState() => _contadorState();
+}
+
+class _contadorState extends State<contador> {
+  int numero = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('actividad 2'),
+      ),
+      body: Stack(
+        //sirve para sobreponer cosas como los botones
+        children: [
+          ListView(
+            //para el scroll y las liostas, tambien se puede usar SingleChildScrollView y con child y column
+            children: [
+              Column(
+                children: [
+                  Container(
+                    child: Column(children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Center(
+                          child: Text(
+                            "El numero es: $numero",
+                            style: TextStyle(fontSize: 30),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: Image.asset("img/img1.png"),
+                      )
+                    ]),
+                  )
+                ],
               ),
-
- */
+            ],
+          ),
+          Align(
+              //aling es para aliniar en un solo lugar
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      if (numero <= 19) {
+                        numero = numero + 1;
+                      }
+                    });
+                  },
+                  child: Icon(Icons.add),
+                ),
+              )),
+          Align(
+              alignment: Alignment.bottomLeft,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      numero = 0;
+                    });
+                  },
+                  child: Icon(Icons.restore),
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+}
